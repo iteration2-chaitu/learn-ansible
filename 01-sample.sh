@@ -1,6 +1,6 @@
-- name : Test playbook
-   hosts : all
-   tasks:
-    - name : print Hello
+- name: Test playbook
+  hosts: all
+  tasks:
+    - name: Print Hello
       ansible.builtin.debug:
-       msg: Hello
+        msg: "Hello"
