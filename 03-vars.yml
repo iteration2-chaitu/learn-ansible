@@ -1,0 +1,41 @@
+- name: Demo on vars
+  hosts: localhost
+  vars:
+    URL_PLAY: play.example.com
+  tasks:
+    - name: Print variable
+      ansible.builtin.debug:
+        msg: URL_PLAY - {{ URL_PLAY }}
+    - name: Task variable
+      ansible.builtin.debug:
+        msg: URL_TASK - {{ URL_TASK }}
+      vars:
+        URL_TASK: tasks.example.com
+
+    # Store result of a task, to OUTPUT variable
+    - name: demo
+      ansible.builtin.shell: uptime
+      register: OUTPUT
+
+    # Retrive the OUTPUT variable
+    - name: Print OUTPUT of previous task
+      ansible.builtin.debug:
+        msg: "{{ OUTPUT }}"
+
+    # Retrive the OUTPUT variable using JSON query
+    - name: Print OUTPUT of previous task with only output of shell command
+      ansible.builtin.debug:
+        msg: "{{ OUTPUT.stdout }}"
+
+
+  roles:
+    - demo
+
+
+# Play level variable can be accessed by all the tasks & roles
+# Task level variable can be accessed only by that task
+# Role level variable is accessible in that role tasks
+# variable from CLI is having higher precedence of any variable
+
+# IMP: if the value of any key is a variable then double quote it
+# ex: msg: {{ URL }}, this needs to be given as msg: "{{URL}}"
