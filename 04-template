@@ -1,5 +1,7 @@
 - name: Demo in template
   hosts: localhost
+  vars:
+   env: dev
   tasks:
     - name: Copy example.conf
       ansible.builtin.copy:
